@@ -1,0 +1,33 @@
+name: jacoco test
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: amazoncorretto:11.0.11
+      env:
+        # コンテナ内では`~`が`/github/home`となるため、キャッシュディレクトリの辻褄をここで合わせる
+        GRADLE_USER_HOME: /github/home/.gradle
+
+
+    steps:
+    # actions/checkout@v2の実行のため、コンテナ内に少なくともtarコマンドが必要
+    # actions/cache@v1の実行のため、コンテナ内にtar, gzipコマンドが必要
+    - name: Install tar, gzip for actions/checkout and actions/cache
+      run: yum install -y tar gzip
+
+    - name: Use gradle cache
+      uses: actions/cache@v1
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+
+    - name: test code
+      run: ./gradlew clean test jacocoTestReport jacocoTestCoverageVerification
+
