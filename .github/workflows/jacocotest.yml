@@ -22,6 +22,9 @@ jobs:
     - name: Install tar, gzip for actions/checkout and actions/cache
       run: yum install -y tar gzip
 
+    - name: Checkout code
+      uses: actions/checkout@v2
+
     - name: Use gradle cache
       uses: actions/cache@v1
       with:
