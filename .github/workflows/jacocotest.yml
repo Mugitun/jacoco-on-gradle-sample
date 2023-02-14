@@ -50,3 +50,5 @@ jobs:
         files: ./build/jacoco.xml
         flags: unittests
         version: "v0.1.15"
+        fail_ci_if_error: true
+        name: codecov-umbrella
