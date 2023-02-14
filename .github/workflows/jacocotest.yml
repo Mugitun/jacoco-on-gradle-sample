@@ -39,8 +39,8 @@ jobs:
     - name: test code
       run: ./gradlew clean test jacocoTestReport jacocoTestCoverageVerification
 
-    - name: list
-      run: ls -la
+    - name: check
+      run: cat ./build/reports/jacoco/test/jacocoTestReport.xml
 
 
     - name: Upload coverage reports to Codecov
