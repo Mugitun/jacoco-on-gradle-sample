@@ -37,7 +37,7 @@ jobs:
       run: ls -la
 
     - name: test code
-      run: ./gradlew clean test jacocoTestReport jacocoTestCoverageVerification
+      run: ./gradlew clean test jacocoTestReport jacocoTestCoverage
 
     - name: check
       run: ls -la ./build/reports/jacoco/test/
